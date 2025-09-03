@@ -192,32 +192,37 @@ server/
 
 ## 📝 How to Run Locally
 
-1. Clone the repo:
+1. **Clone the repo**
 
    ```bash
    git clone <your-repo-url>
    cd Placement-Management
    ```
-2. Install dependencies for both frontend and backend:
+---
+
+2. **Install dependencies for both frontend and backend**
 
    ```bash
    npm install
    ```
-3. Create .env file inside server/ with your environment variables:
+---
 
-   ```bash
- PORT=3001
-MONGO_URI=your_mongodb_connection_string
+3. **Create .env file inside server/ with your environment variables**
+
+```bash
+PORT=3001
+MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/password-reset
 JWT_SECRET=your_jwt_secret_key
 FRONTEND_URL=http://localhost:5173
 EMAIL_USER=your_email@example.com
 EMAIL_PASS=your_email_password
-   ```
-4. Start the server:
+```
+---
+4. **Start the server**
 
-   ```bash
-  npm run dev
-   ```
+```bash
+npm run dev
+```
 
 ---
 
@@ -232,8 +237,11 @@ This account is special because:
   - Generating placement reports and overall statistics.
   - Promoting existing users (students or company representatives) to **Admin role**.
 - ⚠️ No new admins can be directly created — they must be promoted by the **Super Admin**.
--**Email: admin@gmail.com**
--**Password: 123456**
+
+  ```bash
+- **Email: admin@gmail.com**
+- **Password: 123456**
+  ```
 
 -⚠️ Do not delete this account, as it is required for accessing the admin dashboard and managing the system.
 
