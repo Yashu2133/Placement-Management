@@ -260,6 +260,8 @@ This account is special because:
 - **Email: guvi@gmail.com**
 - **Password: 123456**
 
+---
+
 - **Admin**
 - **Email: superuser@gmail.com**
 - **Password: 123456**
