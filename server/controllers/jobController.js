@@ -1,12 +1,10 @@
-// controllers/jobController.js
 const Job = require('../models/Job');
 const Company = require('../models/Company');
 const Notification = require('../models/Notification');
-const User = require('../models/User');              // <-- add this
-const sendEmail = require('../utils/sendEmail');     // <-- add this
+const User = require('../models/User');            
+const sendEmail = require('../utils/sendEmail');    
 
 const jobController = {
-  // Company posts a job
   create: async (req, res) => {
     try {
       const company = await Company.findOne({ user: req.user.id });
@@ -35,7 +33,7 @@ const jobController = {
           admins.map(a =>
             Notification.create({
               userId: a._id,
-              type: "system", // ✅ keep within your enum
+              type: "system", 
               message: `New job "${job.title}" posted by ${company.name}. Please review.`,
             })
           )
@@ -114,7 +112,6 @@ const jobController = {
         });
       }
 
-      // 📧 Email (optional)
       if (job.company?.email) {
         await sendEmail({
           to: job.company.email,
@@ -130,7 +127,7 @@ const jobController = {
     }
   },
 
-  // unchanged
+
   all: async (req, res) => {
     try {
       let jobs;

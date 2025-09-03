@@ -1,4 +1,3 @@
-// src/pages/student/Jobs.jsx
 import { useEffect, useState } from "react";
 import API from "../../api/api";
 import DataTable from "../../components/DataTable";

@@ -13,7 +13,7 @@ const interviewSchema = new mongoose.Schema({
   meetingLink: { type: String },
   location: { type: String },
   platform: String,         // e.g., Zoom, Meet
-  meetingLink: String,      // for quick integration
+  meetingLink: String,      
   meetingId: String,
   meetingPassword: { type: String, select: false },
   interviewers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
@@ -24,7 +24,7 @@ const interviewSchema = new mongoose.Schema({
   score: { type: Number, min: 0, max: 100 },
   result: { type: String, enum: ["Pending","Shortlisted","Rejected","Selected","Hired"], default: "Pending" },
   videoProvider: {
-    providerName: String,         // "zoom" | "google-meet" | "teams"
+    providerName: String,        
     externalMeetingId: String,
     webhookStatus: { type: String, enum: ["pending","completed","failed","cancelled"], default: "pending" }
   }

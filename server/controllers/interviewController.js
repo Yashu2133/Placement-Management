@@ -9,17 +9,15 @@ const interviewController ={
     try {
       const { jobId, studentId, startTime, interviewType, platform, meetingLink, location } = req.body;
 
-      // Validation: location required only for Offline
+  
       if (interviewType === "Offline" && !location) {
         return res.status(400).json({ success: false, message: "Location is required for offline interviews" });
       }
 
-      // Validation: platform+link required only for Online/Hybrid
       if ((interviewType === "Online" || interviewType === "Hybrid") && (!platform || !meetingLink)) {
         return res.status(400).json({ success: false, message: "Platform and meeting link are required for online/hybrid interviews" });
       }
 
-      // ✅ Check that the candidate has an application for this job and is shortlisted
       const application = await Application.findOne({ jobId, studentId })
       .populate("studentId", "name email")
   .populate("jobId", "title");
@@ -34,7 +32,7 @@ const interviewController ={
 const interview = await Interview.create({
   job: jobId,
   candidate: studentId,
-  application: application._id, // ✅ link to Application
+  application: application._id,
   startTime,
   interviewType,
   platform: (interviewType !== "Offline") ? platform : undefined,
@@ -42,12 +40,10 @@ const interview = await Interview.create({
   location: (interviewType === "Offline") ? location : undefined,
 });
 
-      // ✅ Update application status to "interview_scheduled"
+     
       application.status = "interview_scheduled";
       application.interviewDate = startTime;
       await application.save();
-
-      // ✅ Send notification to the student
       await Notification.create({
         userId: studentId,
         message: `Your interview for the Job: ${application.jobId.title} has been scheduled on ${new Date(startTime).toLocaleString()}.`,
@@ -143,7 +139,7 @@ hireCandidate: async (req, res) => {
     if (interview.application) {
       const app = await Application.findById(interview.application);
       if (app) {
-        app.status = "Hired"; // ✅ now passes validation
+        app.status = "Hired"; 
         await app.save();
       }
     }

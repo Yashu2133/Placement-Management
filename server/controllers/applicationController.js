@@ -1,4 +1,3 @@
-// controllers/applicationController.js
 const Application = require("../models/Application");
 const Job = require("../models/Job");
 const Notification = require('../models/Notification');
@@ -49,8 +48,8 @@ create: async (req, res) => {
     const apps = await Application.find({ studentId: req.user.id })
       .populate({
         path: "jobId",
-        select: "title company",   // ✅ use company not companyId
-        populate: { path: "company", select: "name" }, // ✅ match schema
+        select: "title company",   
+        populate: { path: "company", select: "name" }, 
       });
 
     res.json({ success: true, data: apps });
@@ -74,7 +73,7 @@ company: async (req, res) => {
       .populate("studentId", "name email")
       .populate({
         path: "jobId",
-        match: { company: company._id }, // 🔑 restrict to this company’s jobs
+        match: { company: company._id }, 
         populate: { path: "company", select: "name" },
       });
 
@@ -96,7 +95,7 @@ company: async (req, res) => {
         .populate({
   path: "jobId",
   select: "title company",
-  populate: { path: "company", select: "name" }, // ✅
+  populate: { path: "company", select: "name" },
 });
 
       res.json({ success: true, data: apps });

@@ -1,4 +1,3 @@
-// seedAdmin.js
 require('dotenv').config();
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
@@ -9,10 +8,8 @@ const User = require('./models/User');
   try {
     await mongoose.connect(MONGODB_URI);
 
-    const email = process.env.SUPERADMIN_EMAIL || "murali@gmail.com";
-    const password = "2025"; // 🔑 set your password here
-
-    // Delete old superadmin if exists
+    const email = process.env.SUPERADMIN_EMAIL || "admin@gmail.com";
+    const password = "2025"; 
     await User.deleteOne({ email });
 
     // Hash new password

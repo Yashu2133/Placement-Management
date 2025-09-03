@@ -28,7 +28,7 @@ export default function PostJob() {
           setCompany(res.data.company);
         } else {
           alert("Please complete your company profile first.");
-          navigate("/company/profile"); // redirect to update
+          navigate("/company/profile"); 
         }
       } catch (err) {
         console.error("Company profile load error:", err);
@@ -54,7 +54,7 @@ export default function PostJob() {
 
     setSaving(true);
     try {
-      const res = await API.post("/jobs", job); // company linked automatically in backend
+      const res = await API.post("/jobs", job); 
       alert(res.data.message || "Job posted successfully!");
       navigate("/company"); // back to dashboard
     } catch (err) {

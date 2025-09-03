@@ -1,4 +1,3 @@
-// routes/applicationRoutes.js
 const express = require('express');
 const { create, my, company, all, one, updateStatus, remove } = require('../controllers/applicationController');
 const { authMiddleware, roleMiddleware } = require('../middleware/authMiddleware');
