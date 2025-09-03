@@ -205,14 +205,13 @@ server/
    ```
 3. Create .env file inside server/ with your environment variables:
 
-   ```env
+   ```bash
  PORT=3001
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret_key
 FRONTEND_URL=http://localhost:5173
 EMAIL_USER=your_email@example.com
 EMAIL_PASS=your_email_password
-
    ```
 4. Start the server:
 
