@@ -238,10 +238,11 @@ This account is special because:
   - Promoting existing users (students or company representatives) to **Admin role**.
 - ⚠️ No new admins can be directly created — they must be promoted by the **Super Admin**.
 
-  ```bash
+---
+
 - **Email: admin@gmail.com**
 - **Password: 123456**
-  ```
+  
 
 -⚠️ Do not delete this account, as it is required for accessing the admin dashboard and managing the system.
 
