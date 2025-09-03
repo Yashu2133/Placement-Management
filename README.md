@@ -239,7 +239,7 @@ This account is special because:
 - ⚠️ No new admins can be directly created — they must be promoted by the **Super Admin**.
 
 ---
-
+- **Super Admin**
 - **Email: admin@gmail.com**
 - **Password: 123456**
   
