@@ -248,7 +248,7 @@ This account is special because:
 
 ---
 
-## 📝 Sample accounts for company and student
+## 📝 Sample accounts for company,student and admin
 
 - **Student**
 - **Email: perumal@gmail.com**
@@ -258,6 +258,10 @@ This account is special because:
 
 - **Company**
 - **Email: guvi@gmail.com**
+- **Password: 123456**
+
+- **Admin**
+- **Email: superuser@gmail.com**
 - **Password: 123456**
 
 ---
