@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export const API = axios.create({
-  baseURL: "http://localhost:3001/api/v1",
+  baseURL: "https://placement-management-z98g.onrender.com/api/v1",
   withCredentials: true,
 });
 
 export const NotifyAPI = axios.create({
-  baseURL: "http://localhost:3001/api/notifications",
+  baseURL: "https://placement-management-z98g.onrender.com/api/notifications",
   withCredentials: true,
 });
 
