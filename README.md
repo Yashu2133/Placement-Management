@@ -248,6 +248,20 @@ This account is special because:
 
 ---
 
+## 📝 Sample accounts for company and student
+
+- **Student**
+- **Email: perumal@gmail.com**
+- **Password: 123456**
+
+---
+
+- **Company**
+- **Email: guvi@gmail.com**
+- **Password: 123456**
+
+---
+
 ## 🔗 GitHub Link
 
 **https://github.com/Yashu2133/Placement-Management**
