@@ -5,13 +5,10 @@ const upload = require('../utils/upload');
 
 const router = express.Router();
 
-router.post(
-  '/',
-  authMiddleware,
-  roleMiddleware(['student']),
-  upload.single('resumeFile'), // Multer handles FormData fields AND file
-  create
-);
+router.post('/', authMiddleware, roleMiddleware(['student']), upload.single('resumeFile'), (req, res, next) => {
+  if (req.file) req.body.resume = `/uploads/${req.file.filename}`;
+  next();
+}, create);
 router.get('/my', authMiddleware, roleMiddleware(['student']), my);
 router.get('/company', authMiddleware, roleMiddleware(['company']), company);
 router.get('/', authMiddleware, roleMiddleware(['admin']), all);
