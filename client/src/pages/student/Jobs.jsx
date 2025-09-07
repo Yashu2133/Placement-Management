@@ -59,7 +59,7 @@ export default function Jobs() {
           { key: "deadline", label: "Deadline", render: r => r.deadline ? new Date(r.deadline).toDateString() : "-" },
         ]}
         data={jobs}
-        actions={(row) => {
+       actions={(row) => {
   const deadlinePassed = row.deadline && new Date(row.deadline) < new Date();
   const disabled = deadlinePassed || row.alreadyApplied;
 
@@ -79,6 +79,7 @@ export default function Jobs() {
     </button>
   );
 }}
+
 
       />
 
