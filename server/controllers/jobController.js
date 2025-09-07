@@ -3,7 +3,7 @@ const Company = require('../models/Company');
 const Notification = require('../models/Notification');
 const User = require('../models/User');            
 const sendEmail = require('../utils/sendEmail'); 
-const Application = require('../models/Application');
+
 
 
 const jobController = {
@@ -130,35 +130,23 @@ const jobController = {
   },
 
 
-all: async (req, res) => {
-  try {
-    let jobs;
-    if (req.user.role === "admin") {
-      jobs = await Job.find().populate("company", "name");
-    } else if (req.user.role === "student") {
-      jobs = await Job.find({ status: "approved" }).populate("company", "name");
-
-      // find jobs this student already applied for
-      const applied = await Application.find({ student: req.user.id }).select("job");
-      const appliedJobIds = applied.map(a => a.job.toString());
-
-      jobs = jobs.map(job => ({
-        ...job.toObject(),
-        alreadyApplied: appliedJobIds.includes(job._id.toString()),
-      }));
-    } else if (req.user.role === "company") {
-      const company = await Company.findOne({ user: req.user.id });
-      jobs = company
-        ? await Job.find({ company: company._id }).populate("company", "name")
-        : [];
-    }
-
-    res.json({ success: true, count: jobs.length, data: jobs });
-  } catch (err) {
-    console.error("Jobs fetch error:", err);
-    res.status(500).json({ success: false, message: err.message });
-  }
-},
+  all: async (req, res) => {
+    try {
+      let jobs;
+      if (req.user.role === "admin") {
+        jobs = await Job.find().populate("company", "name");
+      } else if (req.user.role === "student") {
+        jobs = await Job.find({ status: "approved" }).populate("company", "name");
+      } else if (req.user.role === "company") {
+        const company = await Company.findOne({ user: req.user.id });
+        jobs = company ? await Job.find({ company: company._id }).populate("company", "name") : [];
+      }
+      res.json({ success: true, count: jobs.length, data: jobs });
+    } catch (err) {
+      console.error("Jobs fetch error:", err);
+      res.status(500).json({ success: false, message: err.message });
+        }
+      },
 
   one: async (req, res) => {
     try {
