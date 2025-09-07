@@ -8,7 +8,7 @@ const User = require('./models/User');
   try {
     await mongoose.connect(MONGODB_URI);
 
-    const email = process.env.SUPERADMIN_EMAIL || "admin@gmail.com";
+    const email = process.env.SUPERADMIN_EMAIL || "superadmin@gmail.com";
     const password = "2025"; 
     await User.deleteOne({ email });
 
