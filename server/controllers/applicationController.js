@@ -6,41 +6,39 @@ const sendEmail = require("../utils/sendEmail");
 
 const applicationController = {
 create: async (req, res) => {
-    try {
-      const { jobId } = req.body;
-      const studentId = req.user.id;
+  try {
+    const { jobId, coverLetter } = req.body;
+    const job = await Job.findById(jobId);
 
-      // Check job exists
-      const job = await Job.findById(jobId);
-      if (!job) {
-        return res.status(404).json({ success: false, message: "Job not found" });
-      }
-
-      // ❌ Block if deadline passed
-      const now = new Date();
-      if (job.deadline && now > job.deadline) {
-        return res.status(400).json({ success: false, message: "Job application deadline has passed" });
-      }
-
-      // Check if already applied
-      const existing = await Application.findOne({ jobId, studentId });
-      if (existing) {
-        return res.status(400).json({ success: false, message: "Already applied for this job" });
-      }
-
-      const application = await Application.create({
-        jobId,
-        studentId,
-        status: "submitted",
-        appliedAt: now,
-      });
-
-      res.status(201).json({ success: true, data: application, message: "Application submitted" });
-    } catch (err) {
-      console.error("Application create error:", err);
-      res.status(500).json({ success: false, message: err.message });
+    if (!job) {
+      return res.status(404).json({ success: false, message: "Job not found" });
     }
-  },
+
+    // ⛔ Deadline check
+    if (job.deadline && new Date(job.deadline) < new Date()) {
+      return res.status(400).json({ success: false, message: "Deadline passed. Cannot apply." });
+    }
+
+    // ⛔ Already applied check
+    const already = await Application.findOne({ job: jobId, student: req.user.id });
+    if (already) {
+      return res.status(400).json({ success: false, message: "You already applied for this job" });
+    }
+
+    // ✅ Save new application
+    const application = await Application.create({
+      job: jobId,
+      student: req.user.id,
+      coverLetter,
+      resumeFile: req.file?.path, // if using multer
+    });
+
+    res.status(201).json({ success: true, data: application, message: "Application submitted" });
+  } catch (err) {
+    console.error("Application error:", err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+},
 
   // STUDENT: get my applications
  my: async (req, res) => {
