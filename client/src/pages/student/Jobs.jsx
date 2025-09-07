@@ -59,7 +59,27 @@ export default function Jobs() {
           { key: "deadline", label: "Deadline", render: r => r.deadline ? new Date(r.deadline).toDateString() : "-" },
         ]}
         data={jobs}
-        actions={(row) => <button onClick={() => apply(row)} className="px-3 py-1 bg-blue-600 text-white rounded">Apply</button>}
+        actions={(row) => {
+  const deadlinePassed = row.deadline && new Date(row.deadline) < new Date();
+  const disabled = deadlinePassed || row.alreadyApplied;
+
+  return (
+    <button
+      onClick={() => apply(row)}
+      disabled={disabled}
+      className={`px-3 py-1 rounded ${
+        disabled ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 text-white"
+      }`}
+    >
+      {deadlinePassed
+        ? "Closed"
+        : row.alreadyApplied
+        ? "Applied"
+        : "Apply"}
+    </button>
+  );
+}}
+
       />
 
       {selectedJob && (
