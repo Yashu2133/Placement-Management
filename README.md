@@ -218,6 +218,7 @@ EMAIL_USER=your_email@example.com
 EMAIL_PASS=your_email_password
 ```
 ---
+
 4. **Start the server**
 
 ```bash
@@ -226,29 +227,36 @@ npm run dev
 
 ---
 
-## 📌 Note
+## 📌 Note the workflow of this system
 
-A **Super Admin** account is automatically seeded into the database when the backend starts for the first time.  
-This account is special because:
-- Admins **cannot** be created through normal registration (only **Students** and **Companies** can register).
-- The Super Admin is responsible for **system-level tasks** such as:
-  - Approving or rejecting company registrations.
-  - Managing students, companies, jobs, and interviews.
-  - Generating placement reports and overall statistics.
-  - Promoting existing users (students or company representatives) to **Admin role**.
-- ⚠️ No new admins can be directly created — they must be promoted by the **Super Admin**.
+1.Company logs in → completes profile (if new) → posts a job with all fields including mandatory deadline.
+
+2.Posted jobs are initially pending → require admin approval to be visible to students.
+
+3.Admin logs in → approves or rejects jobs → approved jobs become available for students.
+
+4.Student logs in → views approved jobs → applies by uploading resume (and optional cover letter) → status = Submitted.
+
+5.Company logs in → reviews applications → shortlists candidates → schedules interviews (online/offline/hybrid) → only shortlisted candidates can be scheduled.
+
+6.Company can hire candidates directly on the interview page → candidate status = Hired.
+
+7.Admin dashboard automatically updates statistics including number of hired students.
+
 
 ---
-- **Super Admin**
+
+-⚠️ Do not delete the admin account, as it is required for accessing the admin dashboard and managing the system its cant be registered as creation of new admin is restricted for security purposes.
+
+---
+
+- **Admin**
 - **Email: admin@gmail.com**
-- **Password: 123456**
-  
-
--⚠️ Do not delete this account, as it is required for accessing the admin dashboard and managing the system.
+- **Password: 1234567**
 
 ---
 
-## 📝 Sample accounts for company,student and admin
+## 📝 Sample accounts for company,student credentials
 
 - **Student**
 - **Email: perumal@gmail.com**
@@ -257,13 +265,7 @@ This account is special because:
 ---
 
 - **Company**
-- **Email: guvi@gmail.com**
-- **Password: 123456**
-
----
-
-- **Admin**
-- **Email: superuser@gmail.com**
+- **Email: company@gmail.com**
 - **Password: 123456**
 
 ---

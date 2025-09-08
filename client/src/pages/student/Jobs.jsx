@@ -5,11 +5,13 @@ import FileUpload from "../../components/FileUpload";
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
+  const [appliedJobs, setAppliedJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
   const [resumeFile, setResumeFile] = useState(null);
   const [coverLetter, setCoverLetter] = useState("");
 
-  const load = async () => {
+  // Load jobs
+  const loadJobs = async () => {
     try {
       const res = await API.get("/jobs");
       setJobs(res.data.data || []);
@@ -18,7 +20,21 @@ export default function Jobs() {
     }
   };
 
-  useEffect(() => { load(); }, []);
+  // Load my applications
+  const loadApplications = async () => {
+    try {
+      const res = await API.get("/applications/my");
+      const jobIds = res.data.data.map(app => app.jobId?._id);
+      setAppliedJobs(jobIds);
+    } catch (err) {
+      console.error("Failed to load applications", err);
+    }
+  };
+
+  useEffect(() => {
+    loadJobs();
+    loadApplications();
+  }, []);
 
   const apply = (job) => setSelectedJob(job);
 
@@ -37,6 +53,7 @@ export default function Jobs() {
         setSelectedJob(null);
         setCoverLetter("");
         setResumeFile(null);
+        loadApplications(); // refresh applied list
       } else {
         alert(res.data.message || "Failed to submit");
       }
@@ -44,6 +61,23 @@ export default function Jobs() {
       console.error("Submit application error:", err.response?.data || err.message);
       alert(err.response?.data?.message || "Failed to submit application");
     }
+  };
+
+  const renderApplyButton = (job) => {
+    const deadlinePassed = job.deadline && new Date(job.deadline) < new Date();
+    const alreadyApplied = appliedJobs.includes(job._id);
+
+    if (deadlinePassed) {
+      return <span className="px-3 py-1 bg-gray-400 text-white rounded">Closed</span>;
+    }
+    if (alreadyApplied) {
+      return <span className="px-3 py-1 bg-green-600 text-white rounded">Applied</span>;
+    }
+    return (
+      <button onClick={() => apply(job)} className="px-3 py-1 bg-blue-600 text-white rounded">
+        Apply
+      </button>
+    );
   };
 
   return (
@@ -59,7 +93,7 @@ export default function Jobs() {
           { key: "deadline", label: "Deadline", render: r => r.deadline ? new Date(r.deadline).toDateString() : "-" },
         ]}
         data={jobs}
-        actions={(row) => <button onClick={() => apply(row)} className="px-3 py-1 bg-blue-600 text-white rounded">Apply</button>}
+        actions={(row) => renderApplyButton(row)}
       />
 
       {selectedJob && (
@@ -76,4 +110,3 @@ export default function Jobs() {
     </div>
   );
 }
-

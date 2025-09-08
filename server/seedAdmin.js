@@ -8,8 +8,8 @@ const User = require('./models/User');
   try {
     await mongoose.connect(MONGODB_URI);
 
-    const email = process.env.SUPERADMIN_EMAIL || "superadmin@gmail.com";
-    const password = "2025"; 
+    const email = process.env.SUPERADMIN_EMAIL || "superuser@gmail.com";
+    const password = "098765"; 
     await User.deleteOne({ email });
 
     // Hash new password

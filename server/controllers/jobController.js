@@ -15,6 +15,9 @@ const jobController = {
       }
 
       const { title, description, location, salary, type, requirements, deadline } = req.body;
+         if (!deadline) {
+      return res.status(400).json({ success: false, message: "Deadline is required" });
+    }
 
       const job = await Job.create({
         company: company._id,
