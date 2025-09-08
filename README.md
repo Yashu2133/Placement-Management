@@ -241,7 +241,7 @@ npm run dev
 
 6.Company can hire candidates directly on the interview page → candidate status = Hired.
 
-7.Admin dashboard automatically updates statistics including number of hired students.
+7.Admin dashboard automatically updates statistics including number of hired students and the result of the applicants are in the all applications page of admin.
 
 
 ---
@@ -259,7 +259,7 @@ npm run dev
 ## 📝 Sample accounts for company,student credentials
 
 - **Student**
-- **Email: perumal@gmail.com**
+- **Email: student@gmail.com**
 - **Password: 123456**
 
 ---
